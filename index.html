@@ -24,19 +24,20 @@
             transition: transform 0.3s;
             transform: translateX(-100%); /* Nascondi inizialmente */
             z-index: 1;
+            margin-top: 33px;
         }
         .sidebar.expanded {
             transform: translateX(0); /* Mostra la sidebar */
         }
         .main {
             margin-left: 0; /* Margine iniziale nullo */
-            margin-top: 19px;
+            margin-top: 33px;
             padding: 20px;
             flex: 1;
             transition: margin-left 0.3s;
         }
         .main.expanded {
-            margin-left: 250px; /* Margine per la sidebar aperta */
+            margin-left: 263px; /* Margine per la sidebar aperta */
         }
         .category {
             cursor: pointer;
