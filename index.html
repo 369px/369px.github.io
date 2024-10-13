@@ -17,27 +17,25 @@
         .sidebar {
             width: 250px;
             background-color: #f4f4f4;
-            padding: 15px;
+            padding: 15 0 0 39;
             position: fixed;
             height: 100%;
             overflow-y: auto;
             transition: transform 0.3s;
             transform: translateX(-100%); /* Nascondi inizialmente */
             z-index: 1;
-            margin-top: 33px;
         }
         .sidebar.expanded {
             transform: translateX(0); /* Mostra la sidebar */
         }
         .main {
-            margin-left: 0; /* Margine iniziale nullo */
-            margin-top: 33px;
+            margin-top: 39 0 0 0; /* when sidebar closed, left margin is 0 */
             padding: 20px;
             flex: 1;
             transition: margin-left 0.3s;
         }
         .main.expanded {
-            margin-left: 263px; /* Margine per la sidebar aperta */
+            margin-left: 269px; /* Margin when sidebar is open */
         }
         .category {
             cursor: pointer;
