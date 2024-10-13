@@ -21,16 +21,19 @@
             height: 100%;
             overflow-y: auto;
             transition: width 0.3s;
+            z-index: 1;
         }
         .main {
             margin-left: 250px;
             padding: 20px;
             flex: 1;
+            transition: margin-left 0.3s;
         }
         .sidebar.collapsed {
             width: 60px;
         }
-        .sidebar.collapsed .sidebar-content {
+        .sidebar.collapsed .category,
+        .sidebar.collapsed .subcategory {
             display: none;
         }
         .category {
@@ -44,8 +47,35 @@
         .toggle-btn {
             display: none;
             cursor: pointer;
+            position: fixed;
+            top: 20px;
+            left: 10px;
+            background-color: #f4f4f4;
+            border: none;
+            padding: 10px;
+            font-size: 16px;
+            border-radius: 5px;
+            z-index: 2;
         }
-
+        .toggle-btn:hover {
+            background-color: #e0e0e0;
+        }
+        .toggle-sidebar {
+            width: 30px;
+            height: 30px;
+            position: fixed;
+            left: 10px;
+            top: 60px;
+            background-color: #f4f4f4;
+            border: none;
+            font-size: 20px;
+            border-radius: 5px;
+            display: none;
+            z-index: 2;
+            align-items: center;
+            justify-content: center;
+        }
+        
         /* Media queries */
         @media (max-width: 768px) {
             .sidebar {
@@ -58,6 +88,9 @@
             .toggle-btn {
                 display: block;
             }
+            .toggle-sidebar {
+                display: flex;
+            }
             .sidebar.expanded {
                 width: 250px;
             }
@@ -69,7 +102,8 @@
 </head>
 <body>
 
-    <div class="toggle-btn" onclick="toggleSidebar()">☰ Menu</div>
+    <button class="toggle-btn" onclick="toggleSidebar()">☰ Menu</button>
+    <button class="toggle-sidebar" onclick="toggleSidebar()">></button>
     
     <div class="container">
         <div class="sidebar" id="sidebar">
@@ -103,6 +137,17 @@
             const main = document.getElementById('main');
             sidebar.classList.toggle('expanded');
             main.classList.toggle('expanded');
+
+            // Gestione della chiusura della sidebar
+            if (sidebar.classList.contains('expanded')) {
+                sidebar.style.width = "250px";
+                setTimeout(() => {
+                    sidebar.style.overflowY = "auto";
+                }, 300); // Aspetta l'animazione prima di abilitare lo scroll
+            } else {
+                sidebar.style.overflowY = "hidden";
+                sidebar.style.width = "0";
+            }
         }
 
         function toggleSubcategory(event) {
