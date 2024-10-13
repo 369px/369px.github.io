@@ -9,6 +9,7 @@
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
+            overflow-x: hidden; /* Evita lo scroll orizzontale */
         }
         .container {
             display: flex;
@@ -20,21 +21,21 @@
             position: fixed;
             height: 100%;
             overflow-y: auto;
-            transition: width 0.3s;
+            transition: transform 0.3s;
+            transform: translateX(-100%); /* Nascondi inizialmente */
             z-index: 1;
         }
+        .sidebar.expanded {
+            transform: translateX(0); /* Mostra la sidebar */
+        }
         .main {
-            margin-left: 250px;
+            margin-left: 0; /* Margine iniziale nullo */
             padding: 20px;
             flex: 1;
             transition: margin-left 0.3s;
         }
-        .sidebar.collapsed {
-            width: 60px;
-        }
-        .sidebar.collapsed .category,
-        .sidebar.collapsed .subcategory {
-            display: none;
+        .main.expanded {
+            margin-left: 250px; /* Margine per la sidebar aperta */
         }
         .category {
             cursor: pointer;
@@ -42,10 +43,9 @@
         }
         .subcategory {
             margin-left: 15px;
-            display: none;
+            display: none; /* Nascondi le sottocategorie inizialmente */
         }
         .toggle-btn {
-            display: none;
             cursor: pointer;
             position: fixed;
             top: 20px;
@@ -60,53 +60,11 @@
         .toggle-btn:hover {
             background-color: #e0e0e0;
         }
-        .toggle-sidebar {
-            width: 30px;
-            height: 100vh;
-            position: fixed;
-            left: 0;
-            top: 0;
-            background-color: #f4f4f4;
-            border: none;
-            font-size: 20px;
-            border-radius: 5px;
-            display: none;
-            z-index: 2;
-            align-items: center;
-            justify-content: center;
-        }
-        .toggle-sidebar:focus {
-            outline: none;
-        }
-
-        /* Media queries */
-        @media (max-width: 768px) {
-            .sidebar {
-                width: 0;
-                position: relative;
-            }
-            .main {
-                margin-left: 0;
-            }
-            .toggle-btn {
-                display: block;
-            }
-            .toggle-sidebar {
-                display: flex;
-            }
-            .sidebar.expanded {
-                width: 250px;
-            }
-            .main.expanded {
-                margin-left: 250px;
-            }
-        }
     </style>
 </head>
 <body>
 
     <button class="toggle-btn" onclick="toggleSidebar()">☰ Menu</button>
-    <button class="toggle-sidebar" onclick="toggleSidebar()">&gt;</button>
     
     <div class="container">
         <div class="sidebar" id="sidebar">
@@ -140,17 +98,6 @@
             const main = document.getElementById('main');
             sidebar.classList.toggle('expanded');
             main.classList.toggle('expanded');
-
-            // Gestione della chiusura della sidebar
-            if (sidebar.classList.contains('expanded')) {
-                sidebar.style.width = "250px";
-                setTimeout(() => {
-                    sidebar.style.overflowY = "auto";
-                }, 300);
-            } else {
-                sidebar.style.overflowY = "hidden";
-                sidebar.style.width = "0";
-            }
         }
 
         function toggleSubcategory(event) {
