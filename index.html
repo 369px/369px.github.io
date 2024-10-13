@@ -178,6 +178,13 @@
             }
         }, { passive: false });
     </script>
+    
+    <!-- Codice per prevenire pinch-to-zoom -->
+    <script>
+        document.addEventListener('gesturestart', function (e) {
+            e.preventDefault();
+        });
+    </script>
 
 </body>
 </html>
