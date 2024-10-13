@@ -14,91 +14,91 @@
             display: flex;
         }
         .sidebar {
-            width: 250px;
-            background-color: #f4f4f4;
+            width: 250px; /* Larghezza della sidebar */
+            background-color: #f4f4f4; /* Colore di sfondo della sidebar */
             padding: 15px;
-            position: fixed;
-            height: 100%;
-            overflow-y: auto;
-            transition: width 0.3s;
+            position: fixed; /* Fissa la sidebar */
+            height: 100%; /* Altezza della sidebar */
+            overflow-y: auto; /* Abilita lo scroll verticale */
             z-index: 1;
-        }
-        .main {
-            margin-left: 250px;
-            padding: 20px;
-            flex: 1;
-            transition: margin-left 0.3s;
+            transition: transform 0.3s; /* Transizione per lo spostamento */
+            transform: translateX(0); /* Posizione iniziale */
         }
         .sidebar.collapsed {
-            width: 60px;
+            transform: translateX(-100%); /* Sposta la sidebar a sinistra quando chiusa */
         }
-        .sidebar.collapsed .category,
-        .sidebar.collapsed .subcategory {
-            display: none;
+        .main {
+            margin-left: 250px; /* Margine a sinistra per il contenuto principale */
+            padding: 20px;
+            flex: 1; /* Espande il contenuto principale */
+            background-color: #ffffff; /* Sfondo bianco per il contenuto principale */
+            transition: margin-left 0.3s; /* Transizione per il margine */
+        }
+        .main.collapsed {
+            margin-left: 0; /* Rimuove il margine quando la sidebar è chiusa */
         }
         .category {
-            cursor: pointer;
-            margin: 10px 0;
+            cursor: pointer; /* Cursore a mano per le categorie */
+            margin: 10px 0; /* Margine verticale per le categorie */
         }
         .subcategory {
-            margin-left: 15px;
-            display: none;
+            margin-left: 15px; /* Margine a sinistra per le sottocategorie */
+            display: none; /* Nascondi le sottocategorie inizialmente */
         }
         .toggle-btn {
-            display: none;
-            cursor: pointer;
-            position: fixed;
-            top: 20px;
-            left: 10px;
-            background-color: #f4f4f4;
-            border: none;
-            padding: 10px;
-            font-size: 16px;
-            border-radius: 5px;
-            z-index: 2;
+            display: none; /* Nascondi il pulsante su desktop */
+            cursor: pointer; /* Cursore a mano per il pulsante */
+            position: fixed; /* Fissa il pulsante */
+            top: 20px; /* Posizione verticale */
+            left: 10px; /* Posizione orizzontale */
+            background-color: #f4f4f4; /* Sfondo del pulsante */
+            border: none; /* Rimuove il bordo */
+            padding: 10px; /* Padding del pulsante */
+            font-size: 16px; /* Dimensione del font */
+            border-radius: 5px; /* Bordo arrotondato */
+            z-index: 2; /* Posizionamento sopra altri elementi */
         }
         .toggle-btn:hover {
-            background-color: #e0e0e0;
+            background-color: #e0e0e0; /* Colore del pulsante al passaggio del mouse */
         }
         .toggle-sidebar {
-            width: 30px;
-            height: 100vh;
-            position: fixed;
-            left: 0;
-            top: 0;
-            background-color: #f4f4f4;
-            border: none;
-            font-size: 20px;
-            border-radius: 5px;
-            display: none;
-            z-index: 2;
-            align-items: center;
-            justify-content: center;
+            width: 30px; /* Larghezza del pulsante per aprire la sidebar */
+            height: 100vh; /* Altezza del pulsante */
+            position: fixed; /* Fissa il pulsante */
+            left: 0; /* Posizione orizzontale */
+            top: 0; /* Posizione verticale */
+            background-color: #f4f4f4; /* Sfondo del pulsante */
+            border: none; /* Rimuove il bordo */
+            font-size: 20px; /* Dimensione del font */
+            border-radius: 5px; /* Bordo arrotondato */
+            display: none; /* Nascondi il pulsante su desktop */
+            z-index: 2; /* Posizionamento sopra altri elementi */
+            align-items: center; /* Centra verticalmente il contenuto */
+            justify-content: center; /* Centra orizzontalmente il contenuto */
         }
         .toggle-sidebar:focus {
-            outline: none;
+            outline: none; /* Rimuove il contorno al focus */
         }
 
         /* Media queries */
         @media (max-width: 768px) {
             .sidebar {
-                width: 0;
-                position: relative;
+                transform: translateX(-100%); /* Sidebar nascosta all'inizio */
             }
             .main {
-                margin-left: 0;
+                margin-left: 0; /* Margine a sinistra per il contenuto principale */
             }
             .toggle-btn {
-                display: block;
+                display: block; /* Mostra il pulsante su mobile */
             }
             .toggle-sidebar {
-                display: flex;
+                display: flex; /* Mostra il pulsante su mobile */
             }
             .sidebar.expanded {
-                width: 250px;
+                transform: translateX(0); /* Mostra la sidebar quando espansa */
             }
             .main.expanded {
-                margin-left: 250px;
+                margin-left: 250px; /* Margine a sinistra per il contenuto principale */
             }
         }
     </style>
@@ -138,25 +138,14 @@
         function toggleSidebar() {
             const sidebar = document.getElementById('sidebar');
             const main = document.getElementById('main');
-            sidebar.classList.toggle('expanded');
-            main.classList.toggle('expanded');
-
-            // Gestione della chiusura della sidebar
-            if (sidebar.classList.contains('expanded')) {
-                sidebar.style.width = "250px";
-                setTimeout(() => {
-                    sidebar.style.overflowY = "auto";
-                }, 300);
-            } else {
-                sidebar.style.overflowY = "hidden";
-                sidebar.style.width = "0";
-            }
+            sidebar.classList.toggle('collapsed'); // Attiva/disattiva la classe 'collapsed' sulla sidebar
+            main.classList.toggle('collapsed'); // Attiva/disattiva la classe 'collapsed' sul contenuto principale
         }
 
         function toggleSubcategory(event) {
             const subcategory = event.target.nextElementSibling;
             if (subcategory) {
-                subcategory.style.display = subcategory.style.display === 'block' ? 'none' : 'block';
+                subcategory.style.display = subcategory.style.display === 'block' ? 'none' : 'block'; // Mostra/nasconde le sottocategorie
             }
         }
     </script>
