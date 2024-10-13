@@ -22,12 +22,18 @@
             overflow-y: auto;
             transition: width 0.3s;
             z-index: 1;
+            opacity: 0; /* Nasconde inizialmente il contenuto */
+            pointer-events: none; /* Disabilita interazioni quando è chiusa */
         }
         .main {
             margin-left: 250px;
             padding: 20px;
             flex: 1;
             transition: margin-left 0.3s;
+        }
+        .sidebar.expanded {
+            opacity: 1; /* Rende visibile quando è aperta */
+            pointer-events: auto; /* Riabilita le interazioni */
         }
         .sidebar.collapsed {
             width: 60px;
@@ -70,10 +76,11 @@
             border: none;
             font-size: 20px;
             border-radius: 5px;
-            display: none;
-            z-index: 2;
+            display: flex;
             align-items: center;
             justify-content: center;
+            z-index: 2;
+            transition: opacity 0.3s;
         }
         
         /* Media queries */
@@ -144,9 +151,11 @@
                 setTimeout(() => {
                     sidebar.style.overflowY = "auto";
                 }, 300); // Aspetta l'animazione prima di abilitare lo scroll
+                document.querySelector('.toggle-sidebar').style.opacity = "0"; // Nascondi il pulsante ">" quando aperto
             } else {
                 sidebar.style.overflowY = "hidden";
                 sidebar.style.width = "0";
+                document.querySelector('.toggle-sidebar').style.opacity = "1"; // Mostra il pulsante ">" quando chiuso
             }
         }
 
