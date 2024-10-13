@@ -171,13 +171,7 @@
             }
         }
 
-        // Aggiungi codice JavaScript per prevenire il pinch-to-zoom
-        // Prevenire il pinch-to-zoom
-document.addEventListener('touchstart', function(event) {
-    if (event.touches.length > 1) {
-        event.preventDefault();
-    }
-}, { passive: false });
+
 
 const ignorePinchToZoomEvent = (event: WheelEvent) => {
   if (event.ctrlKey) {
