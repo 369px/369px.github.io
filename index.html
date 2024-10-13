@@ -14,91 +14,90 @@
             display: flex;
         }
         .sidebar {
-            width: 250px; /* Larghezza della sidebar */
-            background-color: #f4f4f4; /* Colore di sfondo della sidebar */
+            width: 250px;
+            background-color: #f4f4f4;
             padding: 15px;
-            position: fixed; /* Fissa la sidebar */
-            height: 100%; /* Altezza della sidebar */
-            overflow-y: auto; /* Abilita lo scroll verticale */
+            position: fixed;
+            height: 100%;
+            overflow-y: auto;
+            transition: transform 0.3s;
+            transform: translateX(-100%);
             z-index: 1;
-            transition: transform 0.3s; /* Transizione per lo spostamento */
-            transform: translateX(0); /* Posizione iniziale */
-        }
-        .sidebar.collapsed {
-            transform: translateX(-100%); /* Sposta la sidebar a sinistra quando chiusa */
         }
         .main {
-            margin-left: 250px; /* Margine a sinistra per il contenuto principale */
+            margin-left: 0;
             padding: 20px;
-            flex: 1; /* Espande il contenuto principale */
-            background-color: #ffffff; /* Sfondo bianco per il contenuto principale */
-            transition: margin-left 0.3s; /* Transizione per il margine */
+            flex: 1;
+            transition: margin-left 0.3s;
+            background-color: white; /* Sfondo bianco per il contenuto della wiki */
         }
-        .main.collapsed {
-            margin-left: 0; /* Rimuove il margine quando la sidebar è chiusa */
+        .sidebar.expanded {
+            transform: translateX(250px);
         }
         .category {
-            cursor: pointer; /* Cursore a mano per le categorie */
-            margin: 10px 0; /* Margine verticale per le categorie */
+            cursor: pointer;
+            margin: 10px 0;
         }
         .subcategory {
-            margin-left: 15px; /* Margine a sinistra per le sottocategorie */
-            display: none; /* Nascondi le sottocategorie inizialmente */
+            margin-left: 15px;
+            display: none;
         }
         .toggle-btn {
-            display: none; /* Nascondi il pulsante su desktop */
-            cursor: pointer; /* Cursore a mano per il pulsante */
-            position: fixed; /* Fissa il pulsante */
-            top: 20px; /* Posizione verticale */
-            left: 10px; /* Posizione orizzontale */
-            background-color: #f4f4f4; /* Sfondo del pulsante */
-            border: none; /* Rimuove il bordo */
-            padding: 10px; /* Padding del pulsante */
-            font-size: 16px; /* Dimensione del font */
-            border-radius: 5px; /* Bordo arrotondato */
-            z-index: 2; /* Posizionamento sopra altri elementi */
+            display: none;
+            cursor: pointer;
+            position: fixed;
+            top: 20px;
+            left: 10px;
+            background-color: #f4f4f4;
+            border: none;
+            padding: 10px;
+            font-size: 16px;
+            border-radius: 5px;
+            z-index: 2;
         }
         .toggle-btn:hover {
-            background-color: #e0e0e0; /* Colore del pulsante al passaggio del mouse */
+            background-color: #e0e0e0;
         }
         .toggle-sidebar {
-            width: 30px; /* Larghezza del pulsante per aprire la sidebar */
-            height: 100vh; /* Altezza del pulsante */
-            position: fixed; /* Fissa il pulsante */
-            left: 0; /* Posizione orizzontale */
-            top: 0; /* Posizione verticale */
-            background-color: #f4f4f4; /* Sfondo del pulsante */
-            border: none; /* Rimuove il bordo */
-            font-size: 20px; /* Dimensione del font */
-            border-radius: 5px; /* Bordo arrotondato */
-            display: none; /* Nascondi il pulsante su desktop */
-            z-index: 2; /* Posizionamento sopra altri elementi */
-            align-items: center; /* Centra verticalmente il contenuto */
-            justify-content: center; /* Centra orizzontalmente il contenuto */
+            width: 30px;
+            height: 100vh;
+            position: fixed;
+            left: 0;
+            top: 0;
+            background-color: #f4f4f4;
+            border: none;
+            font-size: 20px;
+            border-radius: 5px;
+            display: none;
+            z-index: 2;
+            align-items: center;
+            justify-content: center;
         }
         .toggle-sidebar:focus {
-            outline: none; /* Rimuove il contorno al focus */
+            outline: none;
         }
 
         /* Media queries */
         @media (max-width: 768px) {
             .sidebar {
-                transform: translateX(-100%); /* Sidebar nascosta all'inizio */
+                width: 250px;
+                position: relative;
+                transform: translateX(-100%);
             }
             .main {
-                margin-left: 0; /* Margine a sinistra per il contenuto principale */
+                margin-left: 0;
             }
             .toggle-btn {
-                display: block; /* Mostra il pulsante su mobile */
+                display: block;
             }
             .toggle-sidebar {
-                display: flex; /* Mostra il pulsante su mobile */
+                display: flex;
             }
             .sidebar.expanded {
-                transform: translateX(0); /* Mostra la sidebar quando espansa */
+                transform: translateX(0);
             }
             .main.expanded {
-                margin-left: 250px; /* Margine a sinistra per il contenuto principale */
+                margin-left: 250px;
             }
         }
     </style>
@@ -138,14 +137,21 @@
         function toggleSidebar() {
             const sidebar = document.getElementById('sidebar');
             const main = document.getElementById('main');
-            sidebar.classList.toggle('collapsed'); // Attiva/disattiva la classe 'collapsed' sulla sidebar
-            main.classList.toggle('collapsed'); // Attiva/disattiva la classe 'collapsed' sul contenuto principale
+            sidebar.classList.toggle('expanded');
+            main.classList.toggle('expanded');
+
+            // Gestione della chiusura della sidebar
+            if (sidebar.classList.contains('expanded')) {
+                main.style.marginLeft = "250px";
+            } else {
+                main.style.marginLeft = "0";
+            }
         }
 
         function toggleSubcategory(event) {
             const subcategory = event.target.nextElementSibling;
             if (subcategory) {
-                subcategory.style.display = subcategory.style.display === 'block' ? 'none' : 'block'; // Mostra/nasconde le sottocategorie
+                subcategory.style.display = subcategory.style.display === 'block' ? 'none' : 'block';
             }
         }
     </script>
