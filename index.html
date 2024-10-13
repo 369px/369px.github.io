@@ -171,9 +171,12 @@
             }
         }
 
-window.onload = toggleSidebar();
-
-        
+        // Aggiungi codice JavaScript per prevenire il pinch-to-zoom
+        document.addEventListener('touchmove', function(event) {
+            if (event.scale !== 1) { 
+                event.preventDefault(); 
+            }
+        }, { passive: false });
     </script>
 
 </body>
