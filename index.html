@@ -179,17 +179,12 @@ document.addEventListener('touchstart', function(event) {
     }
 }, { passive: false });
 
-document.addEventListener('gesturestart', function(event) {
+const ignorePinchToZoomEvent = (event: WheelEvent) => {
+  if (event.ctrlKey) {
     event.preventDefault();
-});
-
-document.addEventListener('gesturechange', function(event) {
-    event.preventDefault();
-});
-
-document.addEventListener('gestureend', function(event) {
-    event.preventDefault();
-});
+  }
+}
+window.addEventListener("wheel", ignorePinchToZoomEvent, { passive: false });
     </script>
 
 </body>
