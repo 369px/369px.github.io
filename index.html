@@ -171,8 +171,12 @@
             }
         }
 
-        // Imposta la sidebar al caricamento della pagina
-        window.onload = toggleSidebar;
+        window.onload = function() {
+            if (window.innerWidth > 768) { // Cambia 768 con la larghezza desiderata
+                toggleSidebar();
+            }
+        };
+        
     </script>
 
 </body>
