@@ -139,6 +139,47 @@ filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#000000",endCo
     font-size: 5.7px; /* text is adaptable */
     
 }
+          
+          /* Scorrimento da destra a sinistra */
+.slide-in-right {
+    transform: translateX(100%); /* Inizialmente spostato a destra */
+    opacity: 0; 
+    animation: slideInRight 0.5s forwards;
+}
+
+@keyframes slideInRight {
+    to {
+        transform: translateX(0); /* Riporta alla posizione originale */
+        opacity: 1;
+    }
+}
+
+/* Scorrimento dall'alto verso il basso */
+.slide-in-down {
+    transform: translateY(-100%); /* Inizialmente spostato sopra */
+    opacity: 0; 
+    animation: slideInDown 0.5s forwards;
+}
+
+@keyframes slideInDown {
+    to {
+        transform: translateY(0); /* Riporta alla posizione originale */
+        opacity: 1;
+    }
+}
+/* Scorrimento dal basso verso l'alto */
+.slide-in-up {
+    transform: translateY(100%) scale(7.69); /* Inizialmente spostato sotto */
+    opacity: 0; 
+    animation: slideInUp 0.5s forwards;
+}
+
+@keyframes slideInUp {
+    to {
+        transform: translateY(0) scale(7.69); /* Riporta alla posizione originale */
+        opacity: 1;
+    }
+}
 
         @media only screen and (hover: none) and (pointer: coarse) and (min-width: 800px) {
             
@@ -164,6 +205,19 @@ filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#000000",endCo
             .down_arrow{
                 margin-top: 39.63%;
             }
+            
+            .slide-in-up {
+    transform: translateY(100%) scale(4.99); /* Inizialmente spostato sotto */
+    opacity: 0; 
+    animation: slideInUp 0.5s forwards;
+}
+
+@keyframes slideInUp {
+    to {
+        transform: translateY(0) scale(4.99); /* Riporta alla posizione originale */
+        opacity: 1;
+    }
+}
           }
 
     </style>
@@ -171,12 +225,12 @@ filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#000000",endCo
 <body>
 
 
-<h1 class="page_title">spruceOS</h1>
-<div class="additional-content">
+<h1 class="page_title hidden slide-in-down">spruceOS</h1>
+<div class="additional-content hidden slide-in-down">
         <p>Make the most out of your Miyoo A30</p>
     </div>
     
-<div class="a30-container">
+<div class="a30-container hidden slide-in-up">
 <div class="a30-display">
     <img class="spruceLogo" src="img/logo.png">
     
@@ -239,6 +293,18 @@ filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#000000",endCo
                     `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.03v13..."/></svg>`;
             }
         }
+        
+        document.addEventListener('DOMContentLoaded', () => {
+    const elements = document.querySelectorAll('.hidden');
+    
+    // Aggiungi le classi di animazione
+    elements.forEach((element, index) => {
+        setTimeout(() => {
+            element.classList.remove('hidden');
+            element.classList.add(element.classList.contains('slide-in-right') ? 'slide-in-right' : 'slide-in-down');
+        }, index * 200); // Aggiungi un ritardo crescente per ogni elemento
+    });
+});
     </script>
 </body>
 </html>
