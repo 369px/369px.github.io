@@ -61,7 +61,6 @@ filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#000000",endCo
     transform: scale(7.69);
     transform-origin: top center; /* Set scale from the top center */
     margin-top: 4%; /* Remove any extra margins */
-    will-change: transform;
 }
 
 .a30-display {
@@ -140,6 +139,32 @@ filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#000000",endCo
     font-size: 5.7px; /* text is adaptable */
     
 }
+
+        @media only screen and (hover: none) and (pointer: coarse) and (min-width: 800px) {
+            
+            .a30-container {
+                transform: scale(4.39);    
+            }
+            
+            .a30-display {
+                margin-left: 42.9%;
+                margin-right: 42.9%;
+                padding: 1.9% 0 1.9%;
+            }
+         }
+         
+@media only screen and (max-width: 768px){
+             .a30-container {
+                 margin-top:10%;
+                transform: scale(4.99);    
+            }
+            .page_title{
+                margin-top: 29.63%;
+            }
+            .down_arrow{
+                margin-top: 39.63%;
+            }
+          }
           
           /* Scorrimento da destra a sinistra */
 .slide-in-right {
@@ -170,56 +195,17 @@ filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#000000",endCo
 }
 /* Scorrimento dal basso verso l'alto */
 .slide-in-up {
-    transform: translateY(100%) scale(7.69); /* Inizialmente spostato sotto */
+    transform: translateY(100%); /* Inizialmente spostato sotto */
     opacity: 0; 
     animation: slideInUp 0.5s forwards;
 }
 
 @keyframes slideInUp {
     to {
-        transform: translateY(0) scale(7.69); /* Riporta alla posizione originale */
+        transform: translateY(0); /* Riporta alla posizione originale */
         opacity: 1;
     }
 }
-
-        @media only screen and (hover: none) and (pointer: coarse) and (min-width: 800px) {
-            
-            .a30-container {
-                transform: scale(4.39);    
-            }
-            
-            .a30-display {
-                margin-left: 42.9%;
-                margin-right: 42.9%;
-                padding: 1.9% 0 1.9%;
-            }
-         }
-         
-@media only screen and (max-width: 768px){
-             .a30-container {
-                 margin-top:10%;
-                transform: scale(4.99);    
-            }
-            .page_title{
-                margin-top: 29.63%;
-            }
-            .down_arrow{
-                margin-top: 39.63%;
-            }
-            
-            .slide-in-up {
-    transform: translateY(100%) scale(4.99); /* Inizialmente spostato sotto */
-    opacity: 0; 
-    animation: slideInUp 0.5s forwards;
-}
-
-@keyframes slideInUp {
-    to {
-        transform: translateY(0) scale(4.99); /* Riporta alla posizione originale */
-        opacity: 1;
-    }
-}
-          }
 
     </style>
 </head>
@@ -231,7 +217,7 @@ filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#000000",endCo
         <p>Make the most out of your Miyoo A30</p>
     </div>
     
-<div class="a30-container hidden slide-in-up">
+<div class="a30-container">
 <div class="a30-display">
     <img class="spruceLogo" src="img/logo.png">
     
@@ -280,7 +266,7 @@ filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#000000",endCo
     
     <img src="img/spruce_logo.png" class="logo-below" alt="Spruce Logo">
     
-<a href="#" class="learn-more-button">▼ Learn More ▼</a>
+<a href="#" class="learn-more-button ">▼ Learn More ▼</a>
     
     <script>
         function toggleIcon(buttonId, iconId) {
