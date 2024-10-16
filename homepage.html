@@ -72,11 +72,18 @@ filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#000000",endCo
     text-decoration: none;
     height: 39px;
     padding-top: 6.9px;
-    color: #726e60;
+    color: #7c6f64;
 }
 
 .button:hover, .icon-button:hover {
     color: #EBDBB2; /* Colore hover */
+}
+
+.spruceLogo{
+    position:absolute;
+    width:5px;
+    padding: 2px 0 0 1.5px;
+    margin-left: -48px;
 }
 
 
@@ -104,7 +111,7 @@ filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#000000",endCo
             .a30-display {
              margin-left: 42.9%;
             margin-right: 42.9%;
-            padding: 2.2% 0 1.8%;
+            padding: 2.2% 0 1.2%;
          }
          }
 
@@ -113,6 +120,7 @@ filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#000000",endCo
 <body>
 <div class="a30-container">
 <div class="a30-display">
+    <img class="spruceLogo" src="img/logo.png">
     <div class="button" id="downloadButton" onclick="toggleIcon('downloadButton', 'downloadIcon')">
         <div id="downloadIcon">
             <!-- Icona download -->
