@@ -22,9 +22,12 @@
     align-items: center;
     justify-content: center;
     font-family: Arial, sans-serif;
-    color: #EBDBB2;
-    background-color: #282828; 
-    
+    color: #EBDBB2; 
+     background: rgb(0,0,0);
+background: -moz-radial-gradient(circle, rgba(0,0,0,1) 0%, rgba(40,40,40,1) 35%, rgba(0,0,0,1) 100%);
+background: -webkit-radial-gradient(circle, rgba(0,0,0,1) 0%, rgba(40,40,40,1) 35%, rgba(0,0,0,1) 100%);
+background: radial-gradient(circle, rgba(0,0,0,1) 0%, rgba(40,40,40,1) 35%, rgba(0,0,0,1) 100%);
+filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#000000",endColorstr="#000000",GradientType=1); 
     overflow-x: hidden;
 }
 
@@ -37,28 +40,26 @@
     height: auto;
     background-image: url("img/miyooa30.png");
     background-repeat: no-repeat;
-    background-position: top left;
+    background-position: center;
     background-size: contain;
-    transform: scale(3.69);
+    transform: scale(7.69);
     margin-top: 2%;
     margin-left: -12.5%;
     margin-right: -12.5%;
 }
 
 
-        .a30-display {
-            /*background-color:red;*/
-            display: flex;
-            flex-grow: 1; /* Rende la larghezza dipendente dal contenitore */
-            margin-left:27.2%;
-            margin-right:27.2%;
-            width: 100%;
-            height:60%;
-            justify-content: center; /* Aligns vertically centered */
-            overflow-y: hidden; /* Abilita lo scrolling verticale */
-            overflow-x: hidden; /* Disabilita lo scrolling orizzontale */
-            padding: 11.5% 0% 11.5%; /* Padding per migliorare l'aspetto */
-        }
+.a30-display {
+    display: flex;
+    flex-grow: 1;
+    margin-left: 35.2%;
+    margin-right: 35%;
+    width: 80%;
+    height: 80%;
+    justify-content: center;
+    overflow: hidden;
+    padding: 4.2% 0 4.2%;
+}
 
 
 
@@ -70,7 +71,7 @@
     box-sizing: border-box;
     text-decoration: none;
     height: 39px;
-    padding-top:9px;
+    padding-top: 6.9px;
     color: #726e60;
 }
 
@@ -90,7 +91,7 @@
         }
 
 .button p, .icon-button p {
-    font-size: 3.3px; /* Dimensione testo adattabile */
+    font-size: 2px; /* Dimensione testo adattabile */
     
 }
 /*
