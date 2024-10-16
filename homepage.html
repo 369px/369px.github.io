@@ -22,6 +22,7 @@
     height: 100%;
     width: 100%; 
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
     font-family: Arial, sans-serif;
@@ -35,9 +36,17 @@ filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#000000",endCo
 }
 
 .page_title {
-    position: absolute;
-    margin-top: -50%;
     font-size: 50px;
+    text-align: center;
+    position: relative;
+    margin-top: -15%;
+}
+
+.additional-content {
+    margin-top: 1%;
+    position: relative;
+    text-align: center;
+    font-size: 18px;
 }
 
 .a30-container {
@@ -52,7 +61,7 @@ filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#000000",endCo
     background-position: center;
     background-size: contain;
     transform: scale(7.69);
-    margin-top: 2%;
+    margin-top: 20%;
     margin-left: -12.5%;
     margin-right: -12.5%;
 }
@@ -64,7 +73,7 @@ filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#000000",endCo
     margin-left: 35.2%;
     margin-right: 35%;
     width: 80%;
-    height: 80%;
+    height: auto;
     justify-content: center;
     overflow: hidden;
     padding: 4.2% 0 4.2%;
@@ -137,9 +146,13 @@ filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#000000",endCo
     </style>
 </head>
 <body>
-<!--
+
+
 <h1 class="page_title">spruceOS</h1>
--->
+<div class="additional-content">
+        <p>Make the most out of your Miyoo A30</p>
+    </div>
+    
 <div class="a30-container">
 <div class="a30-display">
     <img class="spruceLogo" src="img/logo.png">
@@ -186,7 +199,7 @@ filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#000000",endCo
 
 </div>
 </div>
-
+    
     <script>
         function toggleIcon(buttonId, iconId) {
             const button = document.getElementById(buttonId);
