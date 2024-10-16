@@ -34,6 +34,12 @@ filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#000000",endCo
     overflow-x: hidden;
 }
 
+.page_title {
+    position: absolute;
+    margin-top: -50%;
+    font-size: 50px;
+}
+
 .a30-container {
     position: relative;
     display: flex;
@@ -117,10 +123,23 @@ filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#000000",endCo
             padding: 1.9% 0 1.9%;
          }
          }
+         
+@media only screen and (max-width: 768px){
+             .a30-display {
+                margin-left: 35.2%;
+                margin-right: 35%;
+    
+                padding: 4.2% 0 4.2%;
+            }
+          }
+         
 
     </style>
 </head>
 <body>
+<!--
+<h1 class="page_title">spruceOS</h1>
+-->
 <div class="a30-container">
 <div class="a30-display">
     <img class="spruceLogo" src="img/logo.png">
