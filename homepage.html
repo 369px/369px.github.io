@@ -49,6 +49,7 @@ filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#000000",endCo
 }
 
 .a30-container {
+    
     position: relative;
     display: flex;
     justify-content: center; /* Center horizontally */
@@ -63,7 +64,23 @@ filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#000000",endCo
     margin-top: 4%; /* Remove any extra margins */
 }
 
+.a30_bg{
+position:absolute;
+    width:50%;
+    height:90%;
+    background-color:#282828;
+}
+
+
+.a30_hardware{
+position:absolute;
+width:auto;
+    height:100%;
+}
+
+
 .a30-display {
+    position:relative;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -143,7 +160,7 @@ filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#000000",endCo
         @media only screen and (hover: none) and (pointer: coarse) and (min-width: 800px) {
             
             .a30-container {
-                transform: scale(4.39);    
+                transform: scale(4);    
             }
             
             .a30-display {
@@ -218,7 +235,9 @@ filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#000000",endCo
     </div>
     
 <div class="a30-container">
-<div class="a30-display">
+    <div class="a30_bg"></div>
+    <img src="img/miyooa30.png" class="a30_hardware"></img>
+    <div class="a30-display">
     <img class="spruceLogo" src="img/logo.png">
     
     <a href="https://github.com/spruceUI/spruceOS/releases/download/spruceV2.3/spruceV2.3.0.zip" class="button" id="downloadButton">
@@ -261,7 +280,7 @@ filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#000000",endCo
         <p>GitHub</p>
     </a>
 
-</div>
+    </div>
 </div>
     
     <img src="img/spruce_logo.png" class="logo-below" alt="Spruce Logo">
