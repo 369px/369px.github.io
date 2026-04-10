@@ -24,19 +24,40 @@
     body {
       touch-action: none;
     }
-    iframe {
+    body {
+      --vw: 100vw;
+      --vh: 100vh;
+    }
+    #game {
       position: fixed;
       inset: 0;
-      width: 100vw;
-      height: 100dvh;
+      width: var(--vw);
+      height: var(--vh);
+      background: #000000;
+      overflow: hidden;
+    }
+    iframe {
+      width: 100%;
+      height: 100%;
       border: none;
       display: block;
       background: #000000;
     }
+    /* Force landscape even when device is held portrait: rotate the container. */
+    @media (orientation: portrait) {
+      #game {
+        width: var(--vh);
+        height: var(--vw);
+        transform: rotate(90deg) translateY(-100%);
+        transform-origin: top left;
+      }
+    }
   </style>
 </head>
 <body>
-  <iframe src="chesstron.html" title="Chesstron"></iframe>
+  <div id="game">
+    <iframe src="chesstron.html" title="Chesstron"></iframe>
+  </div>
   <script>
     // Register service worker for PWA/offline support
     if ('serviceWorker' in navigator) {
@@ -74,6 +95,15 @@
       if (now - lastTouch < 300) e.preventDefault();
       lastTouch = now;
     }, { passive: false });
+
+    // Keep CSS viewport vars in sync (helps mobile browser UI bars).
+    const setViewportVars = () => {
+      document.body.style.setProperty('--vw', `${window.innerWidth}px`);
+      document.body.style.setProperty('--vh', `${window.innerHeight}px`);
+    };
+    window.addEventListener('resize', setViewportVars);
+    window.addEventListener('orientationchange', setViewportVars);
+    setViewportVars();
   </script>
 </body>
 </html>
