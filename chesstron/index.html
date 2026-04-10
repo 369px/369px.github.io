@@ -1,109 +1,211 @@
 <!doctype html>
 <html lang="it">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, minimum-scale=1, user-scalable=no">
-  <meta name="theme-color" content="#000000">
-  <title>Chesstron Wrapper</title>
-  <link rel="manifest" href="manifest.json">
-  <link rel="apple-touch-icon" href="icon-192.png">
-  <style>
-    :root {
-      background: #000000;
-    }
-    * { box-sizing: border-box; }
-    html, body {
-      margin: 0;
-      padding: 0;
-      width: 100%;
-      height: 100%;
-      background: #000000;
-      overflow: hidden;
-      overscroll-behavior: none;
-    }
-    body {
-      touch-action: none;
-    }
-    body {
-      --vw: 100vw;
-      --vh: 100vh;
-    }
-    #game {
-      position: fixed;
-      inset: 0;
-      width: var(--vw);
-      height: var(--vh);
-      background: #000000;
-      overflow: hidden;
-    }
-    iframe {
-      width: 100%;
-      height: 100%;
-      border: none;
-      display: block;
-      background: #000000;
-    }
-    /* Force landscape even when device is held portrait: rotate the container. */
-    @media (orientation: portrait) {
-      #game {
-        width: var(--vh);
-        height: var(--vw);
-        transform: rotate(90deg) translateY(-100%);
-        transform-origin: top left;
-      }
-    }
-  </style>
-</head>
-<body>
-  <div id="game">
-    <iframe src="chesstron.html" title="Chesstron"></iframe>
-  </div>
-  <script>
-    // Register service worker for PWA/offline support
-    if ('serviceWorker' in navigator) {
-      window.addEventListener('load', () => {
-        navigator.serviceWorker.register('./sw.js').catch(err => {
-          console.error('SW registration failed', err);
-        });
-      });
-    }
+    <head>
+        <meta charset="UTF-8" />
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0, maximum-scale=1, minimum-scale=1, user-scalable=no"
+        />
+        <meta name="theme-color" content="#000000" />
+        <title>Chesstron Wrapper</title>
+        <link rel="manifest" href="manifest.json" />
+        <link rel="apple-touch-icon" href="icon-192.png" />
+        <style>
+            :root {
+                background: #000000;
+            }
+            * {
+                box-sizing: border-box;
+            }
+            html,
+            body {
+                margin: 0;
+                padding: 0;
+                width: 100%;
+                height: 100%;
+                background: #000000;
+                overflow: hidden;
+                overscroll-behavior: none;
+            }
+            html::-webkit-scrollbar,
+            body::-webkit-scrollbar,
+            #game::-webkit-scrollbar {
+                display: none;
+                width: 0;
+                height: 0;
+            }
+            body {
+                touch-action: none;
+            }
+            body {
+                --vw: 100vw;
+                --vh: 100vh;
+                transform: translateX(-20px) !important;
+            }
+            #game {
+                position: fixed;
+                inset: 0;
+                width: var(--vw);
+                height: var(--vh);
+                background: #000000;
+                overflow: hidden;
+            }
+            iframe {
+                position: absolute;
+                left: 50%;
+                top: 50%;
+                width: 488px; /* base game size */
+                height: 270px;
+                border: none;
+                outline: none;
+                display: block;
+                background: #000000;
+                transform-origin: center center;
+                scrollbar-width: none;
+            }
+            iframe::-webkit-scrollbar {
+                display: none;
+            }
+            /* Force landscape even when device is held portrait: rotate the container. */
+            @media (orientation: portrait) {
+                #game {
+                    width: var(--vh);
+                    height: var(--vw);
+                    transform: rotate(90deg) translateY(-100%);
+                    transform-origin: top left;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <div id="game">
+            <iframe
+                src="chesstron.html"
+                title="Chesstron"
+                scrolling="no"
+            ></iframe>
+        </div>
+        <script>
+            // Register service worker for PWA/offline support
+            if ("serviceWorker" in navigator) {
+                window.addEventListener("load", () => {
+                    navigator.serviceWorker.register("./sw.js").catch((err) => {
+                        console.error("SW registration failed", err);
+                    });
+                });
+            }
 
-    // Request landscape orientation when possible.
-    async function lockLandscape() {
-      const orientation = screen.orientation || screen.mozOrientation || screen.msOrientation;
-      if (orientation && orientation.lock) {
-        try {
-          await orientation.lock('landscape');
-        } catch (e) {
-          // Some browsers require fullscreen before locking; ignore if not available.
-        }
-      }
-    }
+            // Request landscape orientation when possible.
+            async function lockLandscape() {
+                const orientation =
+                    screen.orientation ||
+                    screen.mozOrientation ||
+                    screen.msOrientation;
+                if (orientation && orientation.lock) {
+                    try {
+                        await orientation.lock("landscape");
+                    } catch (e) {
+                        // Some browsers require fullscreen before locking; ignore if not available.
+                    }
+                }
+            }
 
-    // On load and after user interaction (needed on iOS/older Android for fullscreen/lock).
-    window.addEventListener('load', lockLandscape, { once: true });
-    window.addEventListener('click', lockLandscape, { once: true });
-    window.addEventListener('touchend', lockLandscape, { once: true });
+            // On load and after user interaction (needed on iOS/older Android for fullscreen/lock).
+            window.addEventListener("load", lockLandscape, { once: true });
+            window.addEventListener("click", lockLandscape, { once: true });
+            window.addEventListener("touchend", lockLandscape, { once: true });
 
-    // Prevent pinch-zoom and double-tap zoom.
-    document.addEventListener('touchmove', e => {
-      if (e.touches.length > 1) e.preventDefault();
-    }, { passive: false });
-    let lastTouch = 0;
-    document.addEventListener('touchend', e => {
-      const now = Date.now();
-      if (now - lastTouch < 300) e.preventDefault();
-      lastTouch = now;
-    }, { passive: false });
+            // Prevent pinch-zoom and double-tap zoom.
+            document.addEventListener(
+                "touchmove",
+                (e) => {
+                    if (e.touches.length > 1) e.preventDefault();
+                },
+                { passive: false },
+            );
+            let lastTouch = 0;
+            document.addEventListener(
+                "touchend",
+                (e) => {
+                    const now = Date.now();
+                    if (now - lastTouch < 300) e.preventDefault();
+                    lastTouch = now;
+                },
+                { passive: false },
+            );
 
-    // Keep CSS viewport vars in sync (helps mobile browser UI bars).
-    const setViewportVars = () => {
-      document.body.style.setProperty('--vw', `${window.innerWidth}px`);
-      document.body.style.setProperty('--vh', `${window.innerHeight}px`);
-    };
-    window.addEventListener('resize', setViewportVars);
-    window.addEventListener('orientationchange', setViewportVars);
-    setViewportVars();
-  </script>
-</body>
+            // Keep CSS viewport vars in sync (helps mobile browser UI bars).
+            const setViewportVars = () => {
+                document.body.style.setProperty(
+                    "--vw",
+                    `${window.innerWidth}px`,
+                );
+                document.body.style.setProperty(
+                    "--vh",
+                    `${window.innerHeight}px`,
+                );
+            };
+            window.addEventListener("resize", () => {
+                setViewportVars();
+                fitCanvas();
+            });
+            window.addEventListener("orientationchange", () => {
+                setViewportVars();
+                fitCanvas();
+            });
+            setViewportVars();
+
+            // Scale iframe to best-fit screen (contain) based on game canvas size.
+            const frame = document.querySelector("iframe");
+            const game = document.getElementById("game");
+            function fitCanvas() {
+                const rect = game.getBoundingClientRect();
+                const vw = rect.width;
+                const vh = rect.height;
+                const doc =
+                    frame.contentDocument || frame.contentWindow?.document;
+                let w = 488,
+                    h = 270; // known base size
+                if (doc) {
+                    const canvas = doc.querySelector("canvas");
+                    if (canvas) {
+                        w = canvas.width || canvas.offsetWidth || w;
+                        h = canvas.height || canvas.offsetHeight || h;
+                    }
+                }
+                const viewW = w; // keep full width
+                const scale = Math.min(vw / viewW, vh / h); // contain
+                const shift = 0;
+                frame.style.width = `${viewW}px`;
+                frame.style.height = `${h}px`;
+                frame.style.transform = `translate(calc(-50% + ${shift}px), -50%) scale(${scale})`;
+            }
+
+            frame.addEventListener("load", () => {
+                // Inject CSS to normalize the inner page (remove margins/scrollbars, hide media controls).
+                try {
+                    const doc =
+                        frame.contentDocument || frame.contentWindow?.document;
+                    if (doc) {
+                        const style = doc.createElement("style");
+                        style.textContent = `
+            html, body { margin: 0 !important; padding: 0 !important; overflow: hidden !important; background: #000 !important; }
+            body { transform: translateX(-12px) !important; }
+            canvas { display: block; margin: 0 auto; }
+            video::-webkit-media-controls,
+            video::-webkit-media-controls-enclosure { display: none !important; }
+            video { pointer-events: none; }
+          `;
+                        doc.head.appendChild(style);
+                    }
+                } catch (_) {}
+
+                fitCanvas();
+                // Some engines resize canvas after load; re-fit shortly after.
+                setTimeout(fitCanvas, 200);
+                setTimeout(fitCanvas, 800);
+            });
+            fitCanvas();
+        </script>
+    </body>
 </html>
